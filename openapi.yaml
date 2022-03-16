@@ -1,0 +1,197 @@
+openapi: 3.0.2
+info:
+  title: Test API
+  version: v1
+  description: This Test API is developed to experiment on an Apigee X Environment.
+# servers:
+#   - description: Test API
+#     url:
+paths:
+  /users:
+    get:
+      responses:
+        200:
+          description: success response of get /users request.
+          content:
+            applicaton/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    user_name:
+                      type: string
+                    role:
+                      type: string
+                    age:
+                      type: integer
+              example:
+                - user_name: Joe
+                  role: developer
+                  age: 37
+                - user_name: Greg
+                  role: accountant
+                  age: 32
+    post:
+      parameters:
+        - name: user_name
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: role
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: age
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: success response of post /user/VALUE
+          content:
+            applicaton/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    response:
+                      type: string
+              example:
+                - response: 200 User successfuly added
+        400:
+          description: fail response of post /user/VALUE
+          content:
+            applicaton/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    response:
+                      type: string
+              example:
+                - response: Error 400 fail response.
+  /users/{user_name}:
+    get:
+      parameters:
+        - name: user_name
+          in: path  # parameter type
+          required: true  # by default is false
+          schema:
+            type: string
+      responses:
+        200:  # status code
+          description: success response of get /user/VALUE
+          content:
+            applicaton/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    user_name:
+                      type: string
+                    role:
+                      type: string
+                    age:
+                      type: integer
+              example:
+                - user_name: Joe
+                  role: developer
+                  age: 37
+        404:
+          description: user not found.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    response:
+                      type: string
+              example:
+                - response: Error 404 user not found
+    patch:
+      parameters:
+        - name: user_name
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: role
+          in: query
+          schema:
+            type: string
+        - name: age
+          in: query
+          schema:
+            type: integer
+      responses:
+        200:
+          description: success response of post /user/VALUE
+          content:
+            applicaton/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    response:
+                      type: string
+              example:
+                - response: 200 User successfuly updated
+        400:
+          description: fail response of post /user/VALUE
+          content:
+            applicaton/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    response:
+                      type: string
+              example:
+                - response: Error 400 fail response.
+    delete:
+      parameters:
+        - name: user_name
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: success response of post /user/VALUE
+          content:
+            applicaton/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    response:
+                      type: string
+              example:
+                - response: 200 User successfuly deleted
+        400:
+          description: fail response of post /user/VALUE
+          content:
+            applicaton/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    response:
+                      type: string
+              example:
+                - response: Error 400 fail response.
+                
+                
