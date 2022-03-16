@@ -3,9 +3,9 @@ info:
   title: Test API
   version: v1
   description: This Test API is developed to experiment on an Apigee X Environment.
-# servers:
-#   - description: Test API
-#     url:
+servers:
+  - description: Test API
+    url: https://apigeex-test.herokuapp.com/api/v1
 paths:
   /users:
     get:
@@ -122,6 +122,10 @@ paths:
         - name: user_name
           in: path
           required: true
+          schema:
+            type: string
+        - name: user_name
+          in: query
           schema:
             type: string
         - name: role
