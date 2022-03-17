@@ -43,9 +43,7 @@ class Users(Resource):
             response = json_util.dumps(user)
             return Response(response, mimetype='application/json')
         else:
-            res = {'response': 'Error 400 fail response'}
-            res = json_util.dumps(res)
-            return Response(res, mimetype='application/json')
+            return {'response': 'Error 404 user not found'}, 404
 
         
     # Delete a user
@@ -53,25 +51,19 @@ class Users(Resource):
         result = mongo.db.users.find_one({'user_name': user_name})
 
         if not result:
-            res = {'response': 'Error 400 fail response'}
-            res = json_util.dumps(res)
-            return Response(res, mimetype='application/json')
+            return {'response': 'Error 400 fail response'}
 
         oid = result['_id']
 
         mongo.db.users.delete_one({'_id': ObjectId(oid)})
-        res = {'resposne': f'200 User successfully deleted'}
-        res = json_util.dumps(res)
-        return Response(res, mimetype='application/json')
+        return {'resposne': f'200 User successfully deleted'}
     
     # Update a user
     def patch(self, user_name):
         result = mongo.db.users.find_one({'user_name': user_name})
 
         if not result:
-            res = {'response': 'Error 400 fail response'}
-            res = json_util.dumps(res)
-            return Response(res, mimetype='application/json')
+            return {'response': 'Error 400 fail response'}
 
         oid = result['_id']
         
@@ -98,7 +90,7 @@ class AllUsers(Resource):
         all_users = mongo.db.users.find()
 
         response = json_util.dumps(all_users)
-        return Response(response[0], mimetype='application/json')
+        return Response(response, mimetype='application/json')
 
     # Create a user
     def post(self):
